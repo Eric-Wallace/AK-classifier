@@ -25,3 +25,10 @@ We train a Huggingface model to classify tweets. We use the Galactica language m
 
 `python train_classifier.py`
 
+Here is an ROC curve for the classifier, using a random holdout set of 10% of the tweets.
+
+## 4. Run The Classifier and Post Tweets
+
+Scrapes the daily dump of arxiv papers and classifies positive examples. Then it tweets them out using the official Twitter API.
+
+`python run_classifier_on_latest_papers.py`

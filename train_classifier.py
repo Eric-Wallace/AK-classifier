@@ -26,11 +26,12 @@ training_args = TrainingArguments(
     per_device_train_batch_size=16, # 1
     per_device_eval_batch_size=16, # 1
     gradient_accumulation_steps=1, # 16
-    num_train_epochs=1,
+    num_train_epochs=2,
     weight_decay=0.01,
     evaluation_strategy="epoch",
     logging_strategy="epoch",
-    fp16=True
+    fp16=True,
+    save_strategy = "no",
     )
 
 trainer = Trainer(
@@ -43,13 +44,14 @@ trainer = Trainer(
 )
 
 trainer.train()
+trainer.save_model('./results')
 
 # get eval predictions
 predictions = trainer.predict(tokenized_datasets["test"])
 positive_preds = predictions.predictions[:,1] #np.argmax(predictions.predictions, axis=-1)
-print(positive_preds.shape)
 labels = predictions.label_ids
 
+# plot ROC curve of model performance
 fpr, tpr, _ = roc_curve(labels, positive_preds)
 roc_auc = auc(fpr, tpr)
 plt.plot(fpr, tpr, color="#FF7974", lw=3, label="ROC curve (area = %0.2f)" % roc_auc)
