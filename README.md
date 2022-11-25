@@ -10,17 +10,17 @@ We collect all tweets from @_akhaliq and @arankomatsuzaki and filter to the twee
 ```
 python scrape_arxiv_tweets.py
 ```
-It stores the tweets in `data/arxiv_tweets.pkl`.
+It stores the tweets in `data/tweetdata.pkl`.
 
 ### 2. Find Associated Arxiv Papers 
 
-For each tweet, we find the associated arxiv paper and extract its title, author list, and abstract. We also collect a set of "negative" examples, which are random NLP papers not tweeted by _akhaliq or arankomatsuzaki. TODO, only using NLP papers as the negatives.
+For each tweet, we find the associated arxiv paper and extract its title, author list, and abstract. We also collect a set of "negative" examples, which are random NLP papers not tweeted by _akhaliq or arankomatsuzaki. TODO, only using NLP papers as the negatives. TODO, need a more sophisticated strategy for selecting good negatives, e.g., low confidence model predictions.	
 
 `python convert_arxiv_papers_to_features.py`
 
 ### 3. Train a Binary Classifier.
 
-We train a Huggingface model to classify tweets. We use the Galactica language model as our pre-trained model, as it is trained on large amounts of scientific text.
+We train a Huggingface model to classify tweets. We use the Galactica language model as our pre-trained model, as it is a good encoder for scientific text.
 
 `python train_classifier.py`
 
@@ -29,7 +29,7 @@ Here is an ROC curve for the classifier, using a random holdout set of 10% of th
 
 ## Running the Model
 
-## 4. Run The Classifier on New Papers and Tweet Them
+### 4. Run The Classifier on New Papers and Tweet Them
 
 Scrapes the daily dump of arxiv papers, scores them with the classifier, and then tweets out the papers with the highest scores.
 
