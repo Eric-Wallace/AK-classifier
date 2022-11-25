@@ -25,7 +25,7 @@ We train a Huggingface model to classify tweets. We use the Galactica language m
 `python train_classifier.py`
 
 Here is an ROC curve for the classifier, using a random holdout set of 10% of the tweets. 
-![ROC Curve](./data/roc_plot.png)
+![ROC Curve](./data/roc_plot.png | width=100)
 
 ## Running the Model
 
